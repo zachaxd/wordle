@@ -2,14 +2,22 @@ import wordBank from "./wordle-bank.txt"
 
 export const boardDefault = [
 ["", "", "", "", ""],
-["B", "U", "N", "N", "Y"],
+["", "", "", "", ""],
 ["", "", "", "", ""],
 ["", "", "", "", ""],
 ["", "", "", "", ""],
 ["", "", "", "", ""],
 ];
 
-const generateWordSet = async () => {
+export const generateWordSet = async () => {
     let wordSet;
-    await fetch(wordBank).then((response) => response.text()).then
-}
+    let todaysWord;
+    await fetch(wordBank).then((response) => response.text())
+    .then((result) => {
+        const wordArr = result.split("\n");
+        todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)]
+        wordSet = new Set(wordArr)
+    });
+
+    return {wordSet, todaysWord};
+};
